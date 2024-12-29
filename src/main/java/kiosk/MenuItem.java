@@ -1,15 +1,26 @@
 package kiosk;
 
 public class MenuItem {
+    private String itemType;
     private String itemName;
     private int itemPrice;
     private int itemAmount;
 
 
-    public MenuItem(String itemName, int itemPrice) {
+    public MenuItem(String itemType, String itemName, int itemPrice) {
+        this.itemType = itemType;
         this.itemName = itemName;
         this.itemPrice = itemPrice;
         this.itemAmount = 0;
+    }
+
+
+    public String getItemType() {
+        return itemType;
+    }
+
+    public void setItemType(String itemType) {
+        this.itemType = itemType;
     }
 
     public String getItemName() {

@@ -7,9 +7,8 @@ public class Drinks {
 
     public void buildDrinkMenu(){
         for (int i = 0; i < drinkNames.length; i++) {
-            MenuItem menuItem = new MenuItem(getDrinkNames()[i], getDrinkPrices()[i]);
+            MenuItem menuItem = new MenuItem("Drink", getDrinkNames()[i], getDrinkPrices()[i]);
             MenuItemManager menuItemManager = new MenuItemManager();
-            menuItemManager.setMenuItems(menuItem);
         }
     }
 

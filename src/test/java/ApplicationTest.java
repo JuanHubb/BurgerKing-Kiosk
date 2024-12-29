@@ -2,7 +2,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 
 import camp.nextstep.edu.missionutils.test.NsTest;
-import gpacalc.Application;
+import kiosk.Application;
 import org.junit.jupiter.api.Test;
 
 public class ApplicationTest extends NsTest {

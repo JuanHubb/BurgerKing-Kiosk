@@ -7,9 +7,8 @@ public class Hamburgers {
 
     public void buildHamburgersMenu(){
         for (int i = 0; i < hamburgerNames.length; i++) {
-            MenuItem menuItem = new MenuItem(getHamburgerNames()[i], getHamburgerPrices()[i]);
+            MenuItem menuItem = new MenuItem("Hamburger", getHamburgerNames()[i], getHamburgerPrices()[i]);
             MenuItemManager menuItemManager = new MenuItemManager();
-            menuItemManager.setMenuItems(menuItem);
         }
     }
 

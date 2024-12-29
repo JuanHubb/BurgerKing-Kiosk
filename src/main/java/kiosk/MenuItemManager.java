@@ -1,26 +1,24 @@
 package kiosk;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class MenuItemManager {
     private MenuItem[] hamburgerList;
     private MenuItem[] sideList;
     private MenuItem[] drinkList;
-    private ArrayList<MenuItem> menuItems;
 
 
     public void selectHamburgers(ShoppingCart cart){
         PrintHamburgerMenu();
-        cart.addItemToShoppingCart("Hamburger", getHamburgerList()[inputItem()], cart);
+        cart.addItemToShoppingCart(getHamburgerList()[inputItem()]);
     }
     public void selectSides(ShoppingCart cart){
         PrintSideMenu();
-        cart.addItemToShoppingCart("Side", getSideList()[inputItem()], cart);
+        cart.addItemToShoppingCart(getSideList()[inputItem()]);
     }
     public void selectDrink(ShoppingCart cart){
         PrintDrinkMenu();
-        cart.addItemToShoppingCart("Drink", getDrinkList()[inputItem()], cart);
+        cart.addItemToShoppingCart(getDrinkList()[inputItem()]);
     }
 
     public void PrintHamburgerMenu(){
@@ -90,13 +88,5 @@ public class MenuItemManager {
 
     public void setDrinkList(MenuItem[] drinkList) {
         this.drinkList = drinkList;
-    }
-
-    public ArrayList<MenuItem> getMenuItems() {
-        return menuItems;
-    }
-
-    public void setMenuItems(MenuItem menuItems) {
-        this.menuItems.add(menuItems);
     }
 }

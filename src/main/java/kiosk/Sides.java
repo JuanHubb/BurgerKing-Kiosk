@@ -7,9 +7,8 @@ public class Sides {
 
     public void buildSideMenu(){
         for (int i = 0; i < sideNames.length; i++) {
-            MenuItem menuItem = new MenuItem(getSideNames()[i], getSidePrices()[i]);
+            MenuItem menuItem = new MenuItem("Side", getSideNames()[i], getSidePrices()[i]);
             MenuItemManager menuItemManager = new MenuItemManager();
-            menuItemManager.setMenuItems(menuItem);
         }
     }
     
