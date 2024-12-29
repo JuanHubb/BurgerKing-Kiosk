@@ -6,18 +6,26 @@ import java.util.Scanner;
 public class ShoppingCart {
     private ArrayList<MenuItem> shoppingMenuItems;
 
+    public ShoppingCart() {
+        shoppingMenuItems = new ArrayList<>();
+    }
+
     // Application 4번 기능
     public void checkShoppingCart(){
         System.out.println("===== 장바구니 =====\n" );
         printShoppingCart();
-        controlShoppingCartMenu(inputNumber());
+        int inputNumber = inputNumber();
+        if (inputNumber != 0){
+            controlShoppingCartMenu(inputNumber);
+        }
     }
     public void printShoppingCart() {
         int totalPrice = 0;
-
-        for (MenuItem eachMenuItem : getShoppingMenuItems()) {
-            totalPrice += eachMenuItem.getItemPrice();
-            System.out.println("- " + eachMenuItem.getItemAmount() + "개");
+        if (!getShoppingMenuItems().isEmpty()){
+            for (MenuItem eachMenuItem : getShoppingMenuItems()) {
+                totalPrice += eachMenuItem.getItemPrice() * eachMenuItem.getItemAmount();
+                System.out.println("- " + eachMenuItem.getItemName() + " " + eachMenuItem.getItemAmount() + "개");
+            }
         }
         System.out.println(
             "\n====================\n" +
@@ -30,14 +38,27 @@ public class ShoppingCart {
 
     public int inputNumber(){
         Scanner scanner = new Scanner(System.in);
-        int choice = scanner.nextInt();
-        scanner.close();
+        int choice;
+
+        do{
+            choice = scanner.nextInt();
+            scanner.nextLine();
+        }while(checkInvalidValue(choice));
+
         return choice;
     }
-
+    public boolean checkInvalidValue(int inputNumber){
+        if (inputNumber < 0 || inputNumber > 6){
+            System.out.println("잘못된 번호를 입력하셨습니다");
+            return true;
+        }
+        return false;
+    }
 
     public void addItemToShoppingCart(MenuItem menuItem){
+        menuItem.setItemAmount(menuItem.getItemAmount() + 1);
         getShoppingMenuItems().add(menuItem);
+        System.out.println("장바구니에 담았습니다");
     }
 
     public void controlShoppingCartMenu(int selectedNumber){
@@ -75,7 +96,7 @@ public class ShoppingCart {
             case 0:
                 break;
             default:
-                getShoppingMenuItems().get(IndexOfMenuItemToChangeAmount).setItemAmount(inputNumber());
+                getShoppingMenuItems().get(IndexOfMenuItemToChangeAmount-1).setItemAmount(inputNumber());
                 break;
         }
     }
@@ -97,11 +118,12 @@ public class ShoppingCart {
     }
 
     public void printCurrentShoppingCart() {
-        int NumberOfMenuItem = 0;
+        int NumberOfMenuItem = 1;
 
         System.out.println("\n현재 장바구니\n");
         for (MenuItem eachMenuItem : getShoppingMenuItems()) {
-            System.out.println(NumberOfMenuItem + ". " + eachMenuItem.getItemAmount() + "개");
+            System.out.println(NumberOfMenuItem + ". " + eachMenuItem.getItemName() + " " +  eachMenuItem.getItemAmount() + "개");
+            NumberOfMenuItem++;
         }
         System.out.println();
     }

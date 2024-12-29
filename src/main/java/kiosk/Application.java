@@ -5,32 +5,29 @@ import java.util.Scanner;
 public class Application {
     public static void main(String[] args) {
         Application app = new Application();
+        ShoppingCart cart = new ShoppingCart();
         MenuItemManager menuItemManager = app.initializeMenuItems();
-        app.KioskRun(menuItemManager);
+        app.KioskRun(app, menuItemManager, cart);
     }
 
-    public void KioskRun(MenuItemManager menuItemManager) {
+    public void KioskRun(Application app, MenuItemManager menuItemManager, ShoppingCart cart) {
         while (true) {
-            printHomeMenu();
-            inputMenuNumber(menuItemManager);
+            app.printHomeMenu();
+            app.controlByMenuNumber(menuItemManager, cart);
         }
     }
 
     public MenuItemManager initializeMenuItems() {
         MenuItemManager menuItemManager = new MenuItemManager();
+        FoodMenu foodMenu = new FoodMenu();
 
-        Hamburgers hamburgers = new Hamburgers();
-        hamburgers.buildHamburgersMenu();
-        Sides sides = new Sides();
-        sides.buildSideMenu();
-        Drinks drinks = new Drinks();
-        drinks.buildDrinkMenu();
+        foodMenu.buildFoodMenu(menuItemManager);
 
         return menuItemManager;
     }
 
     public void printHomeMenu() {
-        System.out.println("=====홈=====\n" +
+        System.out.println("\n=====홈=====\n" +
                 "\n" +
                 "1. 햄버거\n" +
                 "2. 사이드\n" +
@@ -41,10 +38,8 @@ public class Application {
                 "메뉴선택:");
     }
 
-    public void inputMenuNumber(MenuItemManager menuItemManager) {
-        Scanner scanner = new Scanner(System.in);
-        int selectedNumber = scanner.nextInt();
-        ShoppingCart cart = new ShoppingCart();
+    public void controlByMenuNumber(MenuItemManager menuItemManager, ShoppingCart cart) {
+        int selectedNumber = inputNumber();
 
         switch (selectedNumber) {
             case 1:
@@ -60,12 +55,19 @@ public class Application {
                 no4ShoppingCartMenu(cart);
                 break;
             case 5:
-                no5ExitMenu();
+                System.exit(0);
                 break;
             default:
                 System.out.println("잘못된 숫자를 입력하셨습니다.");
                 break;
         }
+    }
+
+    public int inputNumber(){
+        Scanner scanner = new Scanner(System.in);
+        int choice = scanner.nextInt();
+        scanner.nextLine();
+        return choice;
     }
 
     public void no1HamburgerMenu(MenuItemManager menuItemManager, ShoppingCart cart) {
@@ -79,8 +81,5 @@ public class Application {
     }
     public void no4ShoppingCartMenu(ShoppingCart cart) {
         cart.checkShoppingCart();
-    }
-    public void no5ExitMenu() {
-        System.exit(0);
     }
 }

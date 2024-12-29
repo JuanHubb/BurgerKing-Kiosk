@@ -1,28 +1,45 @@
 package kiosk;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class MenuItemManager {
-    private MenuItem[] hamburgerList;
-    private MenuItem[] sideList;
-    private MenuItem[] drinkList;
+    private ArrayList<MenuItem> hamburgerList;
+    private ArrayList<MenuItem> sideList;
+    private ArrayList<MenuItem> drinkList;
 
+    public MenuItemManager() {
+        hamburgerList = new ArrayList<>();
+        sideList = new ArrayList<>();
+        drinkList = new ArrayList<>();
+    }
 
-    public void selectHamburgers(ShoppingCart cart){
+    public void selectHamburgers(ShoppingCart cart) {
         PrintHamburgerMenu();
-        cart.addItemToShoppingCart(getHamburgerList()[inputItem()]);
+
+        int inputNumber = inputNumber();
+        if (inputNumber != 0) {
+            cart.addItemToShoppingCart(getHamburgerList().get(inputNumber - 1));
+        }
     }
     public void selectSides(ShoppingCart cart){
         PrintSideMenu();
-        cart.addItemToShoppingCart(getSideList()[inputItem()]);
+
+        int inputNumber = inputNumber();
+        if (inputNumber != 0) {
+            cart.addItemToShoppingCart(getSideList().get(inputNumber - 1));
+        }
     }
     public void selectDrink(ShoppingCart cart){
         PrintDrinkMenu();
-        cart.addItemToShoppingCart(getDrinkList()[inputItem()]);
+        int inputNumber = inputNumber();
+        if (inputNumber != 0) {
+            cart.addItemToShoppingCart(getDrinkList().get(inputNumber - 1));
+        }
     }
 
     public void PrintHamburgerMenu(){
-        System.out.println("=====햄버거 메뉴=====\n" +
+        System.out.println("\n=====햄버거 메뉴=====\n" +
                 "\n" +
                 "1. 와퍼 (6900원)\n" +
                 "2. 큐브 스테이크 와퍼 (8900원)\n" +
@@ -34,7 +51,7 @@ public class MenuItemManager {
                 "메뉴선택 (0을 선택 시 홈으로):");
     }
     public void PrintSideMenu(){
-        System.out.println("=====사이드 메뉴=====\n" +
+        System.out.println("\n=====사이드 메뉴=====\n" +
                 "\n" +
                 "1. 너겟킹 (2500원)\n" +
                 "2. 해쉬 브라운 (1800원)\n" +
@@ -46,7 +63,7 @@ public class MenuItemManager {
                 "메뉴선택 (0을 선택 시 홈으로):");
     }
     public void PrintDrinkMenu(){
-        System.out.println("=====음료 메뉴=====\n" +
+        System.out.println("\n=====음료 메뉴=====\n" +
                 "\n" +
                 "1. 코카콜라 (2000원)\n" +
                 "2. 코카콜라 제로 (2000원)\n" +
@@ -58,35 +75,47 @@ public class MenuItemManager {
                 "메뉴선택 (0을 선택 시 홈으로):");
     }
 
-    public int inputItem(){
+    public int inputNumber(){
         Scanner scanner = new Scanner(System.in);
-        int choice = scanner.nextInt();
-        scanner.close();
+        int choice;
+
+        do{
+            choice = scanner.nextInt();
+            scanner.nextLine();
+        }while(checkInvalidValue(choice));
+
         return choice;
+    }
+    public boolean checkInvalidValue(int inputNumber){
+        if (inputNumber < 0 || inputNumber > 6){
+            System.out.println("잘못된 번호를 입력하셨습니다");
+            return true;
+        }
+        return false;
     }
 
 
-    public MenuItem[] getHamburgerList() {
+    public ArrayList<MenuItem> getHamburgerList() {
         return hamburgerList;
     }
 
-    public void setHamburgerList(MenuItem[] hamburgerList) {
+    public void setHamburgerList(ArrayList<MenuItem> hamburgerList) {
         this.hamburgerList = hamburgerList;
     }
 
-    public MenuItem[] getSideList() {
-        return this.sideList;
+    public ArrayList<MenuItem> getSideList() {
+        return sideList;
     }
 
-    public void setSideList(MenuItem[] sideList) {
+    public void setSideList(ArrayList<MenuItem> sideList) {
         this.sideList = sideList;
     }
 
-    public MenuItem[] getDrinkList() {
+    public ArrayList<MenuItem> getDrinkList() {
         return drinkList;
     }
 
-    public void setDrinkList(MenuItem[] drinkList) {
+    public void setDrinkList(ArrayList<MenuItem> drinkList) {
         this.drinkList = drinkList;
     }
 }
