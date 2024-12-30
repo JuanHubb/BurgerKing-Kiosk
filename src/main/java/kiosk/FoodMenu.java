@@ -1,7 +1,5 @@
 package kiosk;
 
-import java.util.ArrayList;
-
 public class FoodMenu {
     static class Hamburgers {
         String[] names = {"와퍼", "큐브 스테이크 와퍼", "콰트로 치즈 와퍼", "몬스터 와퍼", "통새우 와퍼", "블랙바베큐 와퍼"};
@@ -9,7 +7,7 @@ public class FoodMenu {
     }
 
     static class Sides {
-        String[] names = {"너겟킹 ", "해쉬 브라운 ", "치즈스틱", "어니언링", "바삭킹", "감자튀김"};
+        String[] names = {"너겟킹", "해쉬 브라운", "치즈스틱", "어니언링", "바삭킹", "감자튀김"};
         int[] prices = {2500, 1800, 1200, 2400, 3000, 2000};
     }
 
