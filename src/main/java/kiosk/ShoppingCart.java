@@ -1,5 +1,6 @@
 package kiosk;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -14,7 +15,7 @@ public class ShoppingCart {
     public void checkShoppingCart(){
         System.out.println("===== 장바구니 =====\n" );
         printShoppingCart();
-        int inputNumber = inputNumber();
+        int inputNumber = inputNumber(6);
         if (inputNumber != 0){
             controlShoppingCartMenu(inputNumber);
         }
@@ -36,30 +37,47 @@ public class ShoppingCart {
             "\n메뉴선택 (0을 선택 시 홈으로):");
     }
 
-    public int inputNumber(){
+    public int inputNumber(int endingNumber){
         Scanner scanner = new Scanner(System.in);
         int choice;
 
         do{
             choice = scanner.nextInt();
             scanner.nextLine();
-        }while(checkInvalidValue(choice));
+        }while(checkInvalidValue(choice, endingNumber));
 
         return choice;
     }
-    public boolean checkInvalidValue(int inputNumber){
-        if (inputNumber < 0 || inputNumber > 6){
-            System.out.println("잘못된 번호를 입력하셨습니다");
+    public boolean checkInvalidValue(int inputNumber, int endingNumber){
+        if (inputNumber < 0 || inputNumber > endingNumber){
+            System.out.println("잘못된 숫자를 입력하셨습니다");
             return true;
         }
         return false;
     }
 
     public void addItemToShoppingCart(MenuItem menuItem){
-        menuItem.setItemAmount(menuItem.getItemAmount() + 1);
-        getShoppingMenuItems().add(menuItem);
-        System.out.println("장바구니에 담았습니다");
+        int menuItemIndex = checkMenuItemExistence(menuItem);
+        if(menuItemIndex == -1){
+            getShoppingMenuItems().add(menuItem);
+            menuItem.setItemAmount(menuItem.getItemAmount() + 1);
+            System.out.println("장바구니에 담았습니다");
+        }else{
+            getShoppingMenuItems().get(menuItemIndex).setItemAmount(menuItem.getItemAmount() + 1);
+        }
     }
+    public int checkMenuItemExistence(MenuItem menuItem){
+        int index = 0;
+
+        for(MenuItem eachMenuItem : getShoppingMenuItems()){
+            if (eachMenuItem == menuItem){
+                return index;
+            }
+            index++;
+        }
+        return -1;
+    }
+
 
     public void controlShoppingCartMenu(int selectedNumber){
         switch (selectedNumber){
@@ -73,10 +91,9 @@ public class ShoppingCart {
                 deleteItem();
                 break;
             case 0:
-                // 정상 작동되는지 확인 필요
                 return;
             default:
-                System.out.println("잘못된 숫자를 입력하셨습니다.");
+                System.out.println("잘못된 번호를 입력하셨습니다.");
                 break;
         }
     }
@@ -90,13 +107,13 @@ public class ShoppingCart {
         System.out.println("===== 수량 조절하기 =====");
         printCurrentShoppingCart();
         System.out.println("수량을 조절할 메뉴 번호를 선택하세요 (0을 선택 시 홈으로): ");
-        int IndexOfMenuItemToChangeAmount = inputNumber();
+        int IndexOfMenuItemToChangeAmount = inputNumber(getShoppingMenuItems().size());
         System.out.println("변경할 수량을 입력하세요: ");
         switch (IndexOfMenuItemToChangeAmount){
             case 0:
                 break;
             default:
-                getShoppingMenuItems().get(IndexOfMenuItemToChangeAmount-1).setItemAmount(inputNumber());
+                getShoppingMenuItems().get(IndexOfMenuItemToChangeAmount-1).setItemAmount(inputNumber(50));
                 break;
         }
     }
@@ -105,10 +122,10 @@ public class ShoppingCart {
         System.out.println("===== 삭제하기 =====");
         printCurrentShoppingCart();
         System.out.println("삭제할 메뉴 번호를 선택하세요 (0을 선택 시 홈으로): ");
-        int IndexOfMenuItemToChangeAmount = inputNumber();
+        int IndexOfMenuItemToChangeAmount = inputNumber(getShoppingMenuItems().size());
         if (IndexOfMenuItemToChangeAmount == 0){return;}
         System.out.println("정말 삭제 하시겠습니까? (0: 취소 및 홈으로 1: 삭제): ");
-        switch (inputNumber()){
+        switch (inputNumber(1)){
             case 0:
                 break; 
             case 1:
