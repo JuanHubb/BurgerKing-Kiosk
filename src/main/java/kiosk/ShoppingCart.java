@@ -129,7 +129,7 @@ public class ShoppingCart {
             case 0:
                 break; 
             case 1:
-                getShoppingMenuItems().remove(IndexOfMenuItemToChangeAmount);
+                getShoppingMenuItems().remove(IndexOfMenuItemToChangeAmount-1);
                 break;
         }
     }
