@@ -5,12 +5,12 @@ import java.util.Scanner;
 public class Application {
     public static void main(String[] args) {
         Application app = new Application();
-        ShoppingCart cart = new ShoppingCart();
-        MenuItemManager menuItemManager = app.initializeMenuItems();
-        app.KioskRun(app, menuItemManager, cart);
+        app.KioskRun(app);
     }
 
-    public void KioskRun(Application app, MenuItemManager menuItemManager, ShoppingCart cart) {
+    public void KioskRun(Application app) {
+        MenuItemManager menuItemManager = app.initializeMenuItems();
+        ShoppingCart cart = new ShoppingCart();
         while (true) {
             app.printHomeMenu();
             app.controlByMenuNumber(menuItemManager, cart);

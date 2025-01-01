@@ -1,5 +1,4 @@
 import kiosk.Application;
-import kiosk.MenuItem;
 import kiosk.MenuItemManager;
 import kiosk.ShoppingCart;
 import org.junit.jupiter.api.AfterEach;
@@ -26,105 +25,91 @@ public class ApplicationTest{
         cart = new ShoppingCart();
     }
 
-    @DisplayName("햄버거 메뉴 추가 테스트")
+
+    @DisplayName("햄버거 메뉴 장바구니 추가 테스트")
     @Test
-    public void testSelectHamburgers() {
+    public void addItemToShoppingCart_addHamburgerMenuItem_createNewMenuItemTest() {
         //given
         int inputMenuItemNumber = 1;
 
         //when
-        for (;inputMenuItemNumber <=6; inputMenuItemNumber++){
-            cart.addItemToShoppingCart(menuItemManager.getHamburgerList().get(inputMenuItemNumber -1));
-        }
+        cart.addItemToShoppingCart(menuItemManager.getHamburgerList().get(inputMenuItemNumber-1));
 
         //then
-        assertEquals("와퍼", cart.getShoppingMenuItems().get(0).getItemName());
-        assertEquals("큐브 스테이크 와퍼", cart.getShoppingMenuItems().get(1).getItemName());
-        assertEquals("콰트로 치즈 와퍼", cart.getShoppingMenuItems().get(2).getItemName());
-        assertEquals("몬스터 와퍼", cart.getShoppingMenuItems().get(3).getItemName());
-        assertEquals("통새우 와퍼", cart.getShoppingMenuItems().get(4).getItemName());
-        assertEquals("블랙바베큐 와퍼", cart.getShoppingMenuItems().get(5).getItemName());
+        assertEquals("와퍼", cart.getShoppingMenuItems().getFirst().getItemName());
+        assertEquals(6900, cart.getShoppingMenuItems().getFirst().getItemPrice());
+        assertEquals(1, cart.getShoppingMenuItems().getFirst().getItemAmount());
     }
 
-    @DisplayName("사이드 메뉴 추가 테스트")
+    @DisplayName("사이드 메뉴 장바구니 추가 테스트")
     @Test
-    public void testSelectSides() {
+    public void addItemToShoppingCart_addSideMenuItem_createNewMenuItemTest() {
         //given
         int inputMenuItemNumber = 1;
 
         //when
-        for (;inputMenuItemNumber <=6; inputMenuItemNumber++){
-            cart.addItemToShoppingCart(menuItemManager.getHamburgerList().get(inputMenuItemNumber -1));
-        }
+        cart.addItemToShoppingCart(menuItemManager.getSideList().get(inputMenuItemNumber-1));
 
         //then
-        assertEquals("너겟킹", cart.getShoppingMenuItems().get(0).getItemName());
-        assertEquals("해쉬 브라운", cart.getShoppingMenuItems().get(1).getItemName());
-        assertEquals("치즈스틱", cart.getShoppingMenuItems().get(2).getItemName());
-        assertEquals("어니언링", cart.getShoppingMenuItems().get(3).getItemName());
-        assertEquals("바삭킹", cart.getShoppingMenuItems().get(4).getItemName());
-        assertEquals("감자튀김", cart.getShoppingMenuItems().get(5).getItemName());
+        assertEquals("너겟킹", cart.getShoppingMenuItems().getFirst().getItemName());
+        assertEquals(2500, cart.getShoppingMenuItems().getFirst().getItemPrice());
+        assertEquals(1, cart.getShoppingMenuItems().getFirst().getItemAmount());
     }
 
-    @DisplayName("음료 메뉴 추가 테스트")
+    @DisplayName("음료 메뉴 장바구니 추가 테스트")
     @Test
-    public void testSelectDrink() {
+    public void addItemToShoppingCart_addDrinkMenuItem_createNewMenuItemTest() {
         //given
         int inputMenuItemNumber = 1;
 
         //when
-        for (;inputMenuItemNumber <=6; inputMenuItemNumber++){
-            cart.addItemToShoppingCart(menuItemManager.getHamburgerList().get(inputMenuItemNumber -1));
-        }
+        cart.addItemToShoppingCart(menuItemManager.getDrinkList().get(inputMenuItemNumber - 1));
 
         //then
-        assertEquals("코카콜라", cart.getShoppingMenuItems().get(0).getItemName());
-        assertEquals("코카콜라 제로", cart.getShoppingMenuItems().get(1).getItemName());
-        assertEquals("펩시", cart.getShoppingMenuItems().get(2).getItemName());
-        assertEquals("펩시 제로", cart.getShoppingMenuItems().get(3).getItemName());
-        assertEquals("스프라이트", cart.getShoppingMenuItems().get(4).getItemName());
-        assertEquals("스프라이트 제로", cart.getShoppingMenuItems().get(5).getItemName());
+        assertEquals("코카콜라", cart.getShoppingMenuItems().getFirst().getItemName());
+        assertEquals(2000, cart.getShoppingMenuItems().getFirst().getItemPrice());
+        assertEquals(1, cart.getShoppingMenuItems().getFirst().getItemAmount());
     }
 
+//    @DisplayName("장바구니 메뉴 주문 테스트")
 //    @Test
-//    void 키오스크_메뉴화면_동작확인() {
+//    public void orderItems_addDrinkMenuItem_createNewMenuItemTest() {
 //        //given
+//        MenuItem firstMenuItem = menuItemManager.getDrinkList().getFirst();
+//        cart.addItemToShoppingCart(firstMenuItem);
 //
 //        //when
-//        app.controlByMenuNumber(menuItemManager, cart);
-//        assertThat(output()).contains(
-//                "=====햄버거 메뉴=====",
-//                "1. 와퍼 (6900원)",
-//                "2. 큐브 스테이크 와퍼 (8900원)",
-//                "3. 콰트로 치즈 와퍼 (7900원)",
-//                "4. 몬스터 와퍼 (9300원)",
-//                "5. 통새우 와퍼 (7900원)",
-//                "6. 블랙바베큐 와퍼 (9300원)",
-//                "메뉴선택 (0을 선택 시 홈으로):");
+//        cart.orderItems();
+//
+//        //then
+//        assertEquals(cart.getShoppingMenuItems().getFirst(), firstMenuItem);
+//        assertEquals(0, app.);
 //    }
 
-    @DisplayName("장바구니 메뉴 추가 테스트")
-    @Test
-    public void testAddItemToShoppingCart() {
-        //given
-        MenuItem newMenuItem = new MenuItem("와퍼",6900);
+//    @DisplayName("장바구니 메뉴 수정 테스트")
+//    @Test
+//    public void adjustItemToShoppingCart_exitWithStatusZero_changeMenuItemAmount() {
+//        //given
+//        MenuItem newMenuItem = new MenuItem("와퍼",6900);
+//
+//        //when
+//        cart.adjustItemAmount();
+//
+//        //then
+//        assertNotEquals(-1, cart.checkMenuItemExistence(newMenuItem));
+//        assertEquals(cart.getShoppingMenuItems().get(0),newMenuItem);
+//    }
+//
+//    @DisplayName("장바구니 메뉴 삭제 테스트")
+//    @Test
+//    public void deleteItem_true_removeMenuItemFromShoppingCart() {
+//        //given
+//        MenuItem firstMenuItem = menuItemManager.getDrinkList().getFirst();
+//        cart.addItemToShoppingCart(firstMenuItem);
+//        //when
+//        cart.deleteItem();
+//        //then
+//        assertTrue(cart.getShoppingMenuItems().isEmpty());
+//    }
 
-        //when
-        cart.addItemToShoppingCart(newMenuItem);
-
-        //then
-        cart.checkMenuItemExistence(newMenuItem);
-        assertEquals(cart.getShoppingMenuItems().get(0),newMenuItem);
-
-    }
-
-
-    @Test
-    void 예외처리_잘못된_메뉴번호_입력() {
-//        assertThatIllegalArgumentException()
-//                .isThrownBy(() -> {
-//                    run("자바프로그래밍언어-3-E0", "한동인성교육-1-P");
-//                    run("자바프로그래밍언어-3-A+", "한동인성교육-1-PD");
-//                });
-    }
 }
